@@ -1,0 +1,5 @@
+
+const Types={
+
+    setUser:'setUser',
+}
