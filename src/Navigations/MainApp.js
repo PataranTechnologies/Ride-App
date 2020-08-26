@@ -12,6 +12,10 @@ import Referal from '../components/MainApp/Referal';
 import TravelHistory from '../components/MainApp/TravelHistory';
 import {createStackNavigator} from 'react-navigation-stack'
 import Header from '../components/customHeader/header'
+import PagosPendientes from '../components/MainApp/PagosPendientes'
+import ComprarCredito from '../components/MainApp/ComprarCredito';
+import ProfileEdit from '../components/MainApp/profileEdit'
+import ProfilePageHeader from '../components/customHeader/ProfilePageHeader'
 const About_StackNavigator = createStackNavigator({
    About: {
      screen:About,
@@ -19,24 +23,95 @@ const About_StackNavigator = createStackNavigator({
     }
  });
 
+ const Help_StackNavigator = createStackNavigator({
+  Help: {
+    screen:Help,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Ayuda" backTo='Home' navigation={navigation} />  }; }
+   }
+});
+
+const MyAddresses_StackNavigator = createStackNavigator({
+  MyAddresses: {
+    screen:Myaddresses,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Mis Direcciones" backTo='Home' navigation={navigation} />  }; }
+   }
+});
+
+const Payments_StackNavigator = createStackNavigator({
+  Payments: {
+    screen:Payments,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Pagos" backTo='Home' navigation={navigation} />  }; }
+   },
+   PagosPendientes: {
+    screen:PagosPendientes,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Pagos Pendientes" backTo='Payments' navigation={navigation} /> ,
+    headerLeft:null,
+   }; }
+   },
+   ComprarCredito: {
+    screen:ComprarCredito,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Comprar Credito" backTo='Payments' navigation={navigation} /> ,
+    headerLeft:null,
+   }; }
+   },
+
+});
+
+const Preferences_StackNavigator = createStackNavigator({
+  Preferences: {
+    screen:Preferences,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Preferencias" backTo='Home' navigation={navigation} />  }; }
+   }
+});
+
+
+const Profile_StackNavigator = createStackNavigator({
+  ProfilePage: {
+    screen:ProfilePage,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <ProfilePageHeader title="Perfil" backTo='Home' goTo='ProfileEdit' navigation={navigation} />  }; }
+   },
+   ProfileEdit: {
+    screen:ProfileEdit,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Editar prefil" backTo='ProfilePage' navigation={navigation} /> ,
+    headerLeft:null,
+   }; }
+   },
+});
+
+
+const TravelHistory_StackNavigator = createStackNavigator({
+  TravelHistory: {
+    screen:TravelHistory,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Historial de Viajes" backTo='Home' navigation={navigation} />  }; }
+   }
+});
+
+
+const Referal_StackNavigator = createStackNavigator({
+  Referal: {
+    screen:Referal,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Promociones" backTo='Home' navigation={navigation} />  }; }
+   }
+});
+
  DrawerNav=createDrawerNavigator({
 
     Home:{screen:Home},
     About:{screen:About_StackNavigator},
     
-    Help:{screen:Help},
+    Help:{screen:Help_StackNavigator},
     
-    MyAddresses:{screen:Myaddresses},
+    MyAddresses:{screen:MyAddresses_StackNavigator},
     
-    Payments:{screen:Payments},
+    Payments:{screen:Payments_StackNavigator},
     
-    Preferences:{screen:Preferences},
+    Preferences:{screen:Preferences_StackNavigator},
     
-    ProfilePage:{screen:ProfilePage},
+    ProfilePage:{screen:Profile_StackNavigator},
     
-    Referal:{screen:Referal},
+    Referal:{screen:Referal_StackNavigator},
     
-     TravelHistory:{screen:TravelHistory},
+     TravelHistory:{screen:TravelHistory_StackNavigator},
     
     
 

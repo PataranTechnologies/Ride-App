@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import Icon2  from 'react-native-vector-icons/Ionicons'
 import Icon from 'react-native-vector-icons/Entypo';
-class Header extends Component {
+class ProfilePageHeader extends Component {
     state = {  }
 
     constructor(props)
@@ -16,6 +16,10 @@ class Header extends Component {
      HandleBack()
      {
          this.props.navigation.navigate(this.props.backTo);
+     }
+     HandleEdit=()=>
+     {
+         this.props.navigation.navigate(this.props.goTo);
      }
     render() { 
         return (
@@ -30,13 +34,15 @@ class Header extends Component {
         <Text style={styles.headerText}>{this.props.title}</Text>
 </View>
 
+<Icon style={styles.iconRight} onPress={this.HandleEdit} name="edit" size={30} color="#ffffff" />
+
                </View> 
 
           );
     }
 }
  
-export default Header;
+export default ProfilePageHeader;
 
 
 const styles=StyleSheet.create({
@@ -48,8 +54,7 @@ const styles=StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         width:"110%",
-        height:90,
-        
+        height:80,
         alignSelf:'stretch',
         marginLeft:-20,
         backgroundColor:'#b32d00',
@@ -65,7 +70,7 @@ const styles=StyleSheet.create({
       },
       headerText: {
         fontWeight: "bold",
-        fontSize: 25,
+        fontSize: 20,
         color: "#333",
         letterSpacing: 1,
         color: "#fff"
@@ -75,7 +80,13 @@ const styles=StyleSheet.create({
         color:'white',
         left: 36,
         
-    }
+    },
+    iconRight:{
+        position: "absolute",
+        color:'white',
+        right: 36,
+  
+    },
 
 
 })
