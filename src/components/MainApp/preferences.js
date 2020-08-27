@@ -5,6 +5,12 @@ import { View,StyleSheet,TextInput, Text,TouchableOpacity,Switch } from 'react-n
 const Preferences=(props)=>{
     const [notificationActive,setNotificationActive]=useState(true);
 
+    const [verificationActive,setVerificationActive]=useState(true);
+
+    const [navigationGMActive,setNavigationGMActive]=useState(true);
+
+    const [navigatioWazeActive,setNavigatioWazeActive]=useState(true);
+
     return (
         <View style={styles.container}>
         <View style={styles.innerContainer}>
@@ -30,7 +36,7 @@ const Preferences=(props)=>{
                           <Switch 
                           trackColor={{ true: '#9999ff', false:"gray"  }}
                           thumbColor='#000099'
-                          value={notificationActive} onValueChange={()=>setActivateWallet(!activateWallet)} />
+                          value={verificationActive} onValueChange={()=>setVerificationActive(!verificationActive)} />
                            </View>
                           </View> 
 
@@ -41,7 +47,7 @@ const Preferences=(props)=>{
                           <Switch 
                           trackColor={{ true: '#9999ff', false:"gray"  }}
                           thumbColor='#000099'
-                          value={notificationActive} onValueChange={()=>setActivateWallet(!activateWallet)} />
+                          value={navigationGMActive} onValueChange={()=>setNavigationGMActive(!navigationGMActive)} />
                            </View>
                           </View> 
          <View style={styles.row}>
@@ -51,7 +57,7 @@ const Preferences=(props)=>{
                           <Switch 
                           trackColor={{ true: '#9999ff', false:"gray"  }}
                           thumbColor='#000099'
-                          value={notificationActive} onValueChange={()=>setActivateWallet(!activateWallet)} />
+                          value={navigatioWazeActive} onValueChange={()=>setNavigatioWazeActive(!navigatioWazeActive)} />
                            </View>
                           </View> 
         <View style={styles.row} pointerEvents="none">
@@ -61,7 +67,7 @@ const Preferences=(props)=>{
                           <Switch 
                           trackColor={{ true: '#9999ff', false:"gray"  }}
                           thumbColor='#000099'
-                          value={notificationActive} onValueChange={()=>setActivateWallet(!activateWallet)} />
+                          value={false} onValueChange={()=>setActivateWallet(false)} />
                            </View>
                           </View> 
 

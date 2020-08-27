@@ -4,11 +4,39 @@ import Icon from 'react-native-vector-icons/Entypo'
 import { color } from 'react-native-reanimated';
 import MapView,{ Polyline,PROVIDER_GOOGLE  }  from  'react-native-maps'
 import Geolocation from '@react-native-community/geolocation';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 const Home=(props)=>  {
     const open=()=>{
         props.navigation.openDrawer();
     } 
     const [granted,setGranted]=useState(false)
+
+/*
+
+
+
+     <MapView
+      style={styles.map}
+        showUserLocation
+    provider={PROVIDER_GOOGLE}
+
+      followUserLocation
+      zoomControlEnabled
+      ref = {(mapView) => { _mapView = mapView; }}
+      loadingEnabled
+      region={getRegion()}
+     
+    >
+
+<Text style={{position:'absolute',top:60,}}>Hola</Text>  
+
+        </MapView>
+
+
+
+*/
+
+
 
     const [location,setLocation] =useState({
         latitude: 37.78825,
@@ -56,15 +84,10 @@ const Home=(props)=>  {
 
      })
     var _mapView;
-        return ( <View style={styles.container}>
-           
-           <TouchableOpacity onPress={()=>open()} style={styles.FixedIcon}>
-                <Icon name='menu' style={styles.MenuIcon} />
-                </TouchableOpacity>
-         <View style={styles.mapContainer}>   
-         <Text>Hola</Text>    
-     <MapView
-      style={styles.map}
+        return ( <View style={styles.map}>
+
+<MapView
+      style={styles.container}
         showUserLocation
     provider={PROVIDER_GOOGLE}
 
@@ -76,10 +99,33 @@ const Home=(props)=>  {
      
     >
 
+ 
+
         </MapView>
+
+
+          
+           <TouchableOpacity style={styles.FixedIcon} onPress={()=>open()} >
+                <Icon name='menu' style={styles.MenuIcon} />
+                </TouchableOpacity>
+
+        <View style={styles.bookView}>
+
+            <TouchableWithoutFeedback style={styles.bookTouch}>
+            <View style={styles.bookRow}>
+                <Text style={styles.mainHeader}>iBuenas tardes, Manuel!</Text>
+                <Text style={styles.mainMessage}>¿A donde deseas ir?</Text>
+                </View>
+           
+           <Icon name='chevron-right' style={styles.arrowIcon} />
+            </TouchableWithoutFeedback>
+
+        </View>
+      
+           
 </View>
 
-            </View> );
+             );
     }
 
 
@@ -95,6 +141,7 @@ top:20,
 left:30,
 width:60,
 height:60,
+paddingVertical: 0,
 borderRadius:60,
 backgroundColor:'white',
     },
@@ -106,16 +153,42 @@ backgroundColor:'white',
          color:'red'     
 
     },
-    mapContainer:{
-        flex:1,
-        position:'absolute',
-        top:0,
-        bottom:0,
-        
-        right:0,
-    },
+  
     map:{
-        ...StyleSheet.absoluteFillObject
+        ...StyleSheet.absoluteFillObject,
+    },
+    bookView:{
+
+        position:'absolute',
+        bottom:10,
+        left:20,
+        right:20,
+        backgroundColor:'white',
+        justifyContent:'center',alignItems:'center',
+        width:'90%',
+        padding:20,
+        borderRadius:30,
+    },
+    bookTouch:{
+        flexDirection:"row",
+        backgroundColor:'white',
+        justifyContent:'center',alignItems:'center',
+        width:'90%',
+        borderRadius:30,
+    },
+    bookRow:{
+        flex:9,
+    },
+    mainHeader:{
+        fontSize:20,fontWeight:'bold'
+    },
+    mainMessage:{
+        color:'gray',
+        fontSize:17,
+    },
+    arrowIcon:{
+        fontSize:30,
+        color:'blue',
     },
 
 })

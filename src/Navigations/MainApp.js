@@ -16,6 +16,10 @@ import PagosPendientes from '../components/MainApp/PagosPendientes'
 import ComprarCredito from '../components/MainApp/ComprarCredito';
 import ProfileEdit from '../components/MainApp/profileEdit'
 import ProfilePageHeader from '../components/customHeader/ProfilePageHeader'
+import MyAddressesEdit from '../components/MainApp/MyAddressesEdit'
+import MyAddressHeader from '../components/customHeader/MyAddressHeader'
+import MyAddressesAdd from '../components/MainApp/MyAddressesAdd'
+import WhereTo from '../components/MainApp/RideBookingScreens/WhereTo';
 const About_StackNavigator = createStackNavigator({
    About: {
      screen:About,
@@ -33,8 +37,22 @@ const About_StackNavigator = createStackNavigator({
 const MyAddresses_StackNavigator = createStackNavigator({
   MyAddresses: {
     screen:Myaddresses,
-    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Mis Direcciones" backTo='Home' navigation={navigation} />  }; }
-   }
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <MyAddressHeader title="Mis Direcciones" backTo='Home' goTo='MyAddressesAdd' navigation={navigation} />  }; }
+   },
+   MyAddressesEdit:{
+     screen:MyAddressesEdit,
+     navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Editar Direccion" backTo='MyAddresses'  navigation={navigation} />,
+    headerLeft:null,
+    }; }
+     
+   },
+   MyAddressesAdd:{
+    screen:MyAddressesAdd,
+    navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Nueva Direccion" backTo='MyAddresses'  navigation={navigation} />,
+   headerLeft:null,
+   }; }
+    
+  },
 });
 
 const Payments_StackNavigator = createStackNavigator({
@@ -94,9 +112,25 @@ const Referal_StackNavigator = createStackNavigator({
    }
 });
 
+
+
+const Home_StackNavigator = createStackNavigator({
+  Home: {
+    screen:Home,
+   
+   },
+WhereTo: {
+  screen:WhereTo,
+  navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="¿A donde deseas ir" backTo='Home' navigation={navigation} /> ,
+  headerLeft:null,
+ }; }
+ },
+
+}
+);
  DrawerNav=createDrawerNavigator({
 
-    Home:{screen:Home},
+    Home:{screen:Home_StackNavigator},
     About:{screen:About_StackNavigator},
     
     Help:{screen:Help_StackNavigator},

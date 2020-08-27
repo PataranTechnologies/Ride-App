@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { View,StyleSheet,TextInput, Text,TouchableOpacity } from 'react-native';
+import { View,StyleSheet,TextInput, Modal,Text,TouchableOpacity } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import  Icon  from 'react-native-vector-icons/FontAwesome';
 import {Picker} from '@react-native-community/picker';
@@ -8,10 +8,34 @@ import {Picker} from '@react-native-community/picker';
 const Help=(props)=>{
 
     const [option,setOption]=useState('Selecciona');
-
+    const [helpDone,setHelpDone]=useState(false);
     const [description,setDescription]=useState('');
+    const onHelp=()=>{
+        setHelpDone(true);
+    }
     return (
         <View style={styles.container}>
+
+{
+                   helpDone? <Modal
+                   transparent={true}
+                   animationType="fade"
+                   onRequestClose={() => {setHelpDone(false)}}
+                   visible={helpDone}>
+                     
+                  <View style={styles.modalBackground}>
+                  <View style={styles.activityIndicatorWrapper}>
+                      
+                       <View style={styles.danger}>
+                           <Text style={styles.dangerText}>✔</Text>
+                       </View>
+
+        <Text style={styles.modalHeader}>Reporte Enviado</Text>
+         
+                      </View></View>
+                 
+                  </Modal>:null
+                }
         <View style={styles.innerContainer}>
 
 
@@ -58,7 +82,7 @@ placeholder={'Escribe aqul..'} style={styles.description} />
     </TouchableWithoutFeedback>
 
 
-    <TouchableOpacity  style={styles.save}>
+    <TouchableOpacity  onPress={()=>{onHelp()}} style={styles.save}>
 
 <Text style={styles.buttonText}>Enviar</Text>
 
@@ -146,6 +170,70 @@ const styles=StyleSheet.create({
         borderRadius:30,
         borderColor:'red',
         padding:3,
+    },
+    danger:{
+        width:80,
+        height:80,
+        borderRadius:80,
+        backgroundColor:'#cc0000',
+        justifyContent:'center',
+        alignItems:'center',
+        alignSelf:'center',
+    },
+    dangerText:{
+        color:'white',
+        fontSize:40,
+        fontWeight:"bold"
+    },
+    modalHeader:{
+        marginTop:10,
+        fontWeight:'bold',
+        textAlign:'center',
+        fontSize:23,
+    },
+    modalMessage:{
+        color:'gray',
+        fontSize:20,
+        textAlign:'center',
+        marginTop:20,
+    },
+
+
+
+    modalBackground: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        backgroundColor: '#00000080'
+      },
+
+      activityIndicatorWrapper: {
+        backgroundColor: '#FFFFFF',
+       padding:20,
+        borderRadius: 30,
+        display: 'flex',
+        alignItems:'center',
+        justifyContent: 'center',
+        margin:30,
+
+      },
+    Button:{
+
+        
+    
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#0000cc',
+        padding:18,
+        borderRadius:30,
+        marginTop:20,
+        marginBottom:30,
+        
+
+
+        
+
     },
 })
 

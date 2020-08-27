@@ -9,7 +9,7 @@ import { set } from 'react-native-reanimated';
 
 
 
-const Myaddresses=(props)=>{
+const WhereTo=(props)=>{
     const [confirmModalShow,setConfirmModalShow]=useState(false);
     const [deleteConfirmed,setDeleteConfirmed]=useState(false);
     const [addresses,setAddresses]=useState([{
@@ -299,4 +299,4 @@ const styles=StyleSheet.create({
     },
   
 })
-export default Myaddresses
+export default WhereTo

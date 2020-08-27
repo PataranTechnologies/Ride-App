@@ -1,13 +1,14 @@
 import React, { Component, useState } from 'react';
-import { Switch, Image,View, StyleSheet,Text, Linking ,TextInput } from 'react-native';
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { Switch, Image,View, StyleSheet,Text, Linking,Modal ,TextInput } from 'react-native';
+import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Entypo'
+import { TouchableOpacity } from 'react-native';
 import ImagePicker from 'react-native-image-picker'
 import { color } from 'react-native-reanimated';
  const RegisterScreen=(props)=> {
     
      const [photo,setPhoto]=useState(null)
-     const [upload,setUpload]=useState(false)
+    const [upload,setUpload]=useState(false)
      const [idType,setIdType]=useState()
      const [id,setId]=useState('')
      const [firstName,setFirstName]=useState('')
@@ -17,7 +18,14 @@ import { color } from 'react-native-reanimated';
      const [password,setPassword]=useState('')
      const [twoStep,setTwoStep]=useState(false)
      const [passwordSame,setPasswordSame]=useState(true);
+     const [confirmModalShow,setConfirmModalShow]=useState(false);
+     
      const onSubmit=()=>{
+         setConfirmModalShow(true);
+       // 
+     }
+     const onSubmitConfirm=()=>{
+         setConfirmModalShow(false),
         props.navigation.navigate('PayInfo')
      }
 
@@ -46,6 +54,34 @@ import { color } from 'react-native-reanimated';
      }
   
         return ( <View style={styles.container}>
+             {
+                    confirmModalShow? <Modal
+                    transparent={true}
+                    animationType="fade"
+                   onRequestClose={() => {setConfirmModalShow(false)}}
+                    visible={confirmModalShow}>
+                     
+                  <View style={styles.modalBackground}>
+                  <View style={styles.activityIndicatorWrapper}>
+                      
+                       <View style={styles.danger}>
+                           <Text style={styles.dangerText}>!</Text>
+                       </View>
+
+                       <Text style={styles.modalHeader}>Es necesaria una foto clara donde se vea tu rostro</Text>
+                       
+                       <Text style={styles.modalMessage}>No importal si es de cuerpo completo solo tu rostro</Text>
+                      
+
+                       <TouchableOpacity onPress={()=>{onSubmitConfirm()}} style={styles.Button}>
+
+<Text style={styles.buttonText}>Aceptar</Text>
+
+</TouchableOpacity>
+                      </View></View>
+                 
+                  </Modal>:null
+                }
 
 
             <ScrollView showsVerticalScrollIndicator={false}  style={styles.innerContainer}>
@@ -112,6 +148,29 @@ const styles=StyleSheet.create({
         flex:1,
         
     },
+    modalCont:{
+        flex:1,
+        
+    },
+   
+    modalBackground: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        backgroundColor: '#00000080'
+      },
+
+      activityIndicatorWrapper: {
+        backgroundColor: '#FFFFFF',
+       padding:20,
+        borderRadius: 30,
+        display: 'flex',
+        alignItems:'center',
+        justifyContent: 'center',
+        margin:30,
+
+      },
     innerContainer:{
         
         margin:20,
@@ -158,7 +217,28 @@ const styles=StyleSheet.create({
         padding:10,
         paddingLeft:20
     },
-   
+    Button:{
+
+        
+    
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#0000cc',
+        padding:18,
+        borderRadius:30,
+        marginTop:20,
+        marginBottom:30,
+        
+
+
+        
+
+    },
+    buttonText:{
+        color:'white',
+        fontWeight:'bold',
+        fontSize:20
+    },
    
 
     loginButton:{
@@ -213,6 +293,32 @@ const styles=StyleSheet.create({
 
         fontSize:15,
 
+    },
+    danger:{
+        width:80,
+        height:80,
+        borderRadius:80,
+        backgroundColor:'#cc0000',
+        justifyContent:'center',
+        alignItems:'center',
+        alignSelf:'center',
+    },
+    dangerText:{
+        color:'white',
+        fontSize:40,
+        fontWeight:"bold"
+    },
+    modalHeader:{
+        marginTop:10,
+        fontWeight:'bold',
+        textAlign:'center',
+        fontSize:23,
+    },
+    modalMessage:{
+        color:'gray',
+        fontSize:20,
+        textAlign:'center',
+        marginTop:20,
     },
     
 })

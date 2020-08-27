@@ -1,5 +1,5 @@
 import React, { Component,useState } from 'react';
-import { View,StyleSheet,TextInput,ScrollView,Image, Text,TouchableOpacity } from 'react-native';
+import { View,StyleSheet,TextInput,ScrollView,Image,Modal, Text,TouchableOpacity } from 'react-native';
 import ImagePicker from 'react-native-image-picker'
 
 const ProfileEdit=(props)=>{
@@ -15,10 +15,19 @@ const ProfileEdit=(props)=>{
      const [password,setPassword]=useState('')
      const [twoStep,setTwoStep]=useState(false)
      const [passwordSame,setPasswordSame]=useState(true);
+     const [confirmModalShow,setConfirmModalShow]=useState(false);
+     const [isSaved,setIsSaved]=useState(false)
      const onSubmit=()=>{
-    alert("save");    
-    
-    }
+         setConfirmModalShow(true);
+       // 
+     }
+     const onSubmitConfirm=()=>{
+         setConfirmModalShow(false),
+      
+        setIsSaved(true);
+     }
+
+     
 
      const handleChoosePhoto = () => {
         const options = {
@@ -47,8 +56,56 @@ const ProfileEdit=(props)=>{
     return (
         <View style={styles.container}>
         <View style={styles.innerContainer}>
+        {
+                    confirmModalShow? <Modal
+                    transparent={true}
+                    animationType="fade"
+                   onRequestClose={() => {setConfirmModalShow(false)}}
+                    visible={confirmModalShow}>
+                     
+                  <View style={styles.modalBackground}>
+                  <View style={styles.activityIndicatorWrapper}>
+                      
+                       <View style={styles.danger}>
+                           <Text style={styles.dangerText}>!</Text>
+                       </View>
 
+                       <Text style={styles.modalHeader}>Es necesaria una foto clara donde se vea tu rostro</Text>
+                       
+                       <Text style={styles.modalMessage}>No importal si es de cuerpo completo solo tu rostro</Text>
+                      
 
+                       <TouchableOpacity onPress={()=>{onSubmitConfirm()}} style={styles.Button}>
+
+<Text style={styles.buttonText}>Aceptar</Text>
+
+</TouchableOpacity>
+                      </View></View>
+                 
+                  </Modal>:null
+                }
+
+{
+                   isSaved? <Modal
+                    transparent={true}
+                    animationType="fade"
+                   onRequestClose={() => {setIsSaved(false)}}
+                    visible={isSaved}>
+                     
+                  <View style={styles.modalBackground}>
+                  <View style={styles.activityIndicatorWrapper}>
+                      
+                       <View style={styles.danger}>
+                           <Text style={styles.dangerText}>✔</Text>
+                       </View>
+
+                       <Text style={styles.modalHeader}>Cambios Guardados</Text>
+                       
+                       
+                      </View></View>
+                 
+                  </Modal>:null
+                }
 
 
         <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
@@ -89,7 +146,7 @@ const ProfileEdit=(props)=>{
 
 
 
-<TouchableOpacity  style={styles.loginButton}>
+<TouchableOpacity onPress={()=>{onSubmit()}} style={styles.loginButton}>
 
 <Text style={styles.buttonText}>Guardar</Text>
 
@@ -217,6 +274,70 @@ const styles=StyleSheet.create({
     switch:{
 
         fontSize:15,
+
+    },
+    danger:{
+        width:80,
+        height:80,
+        borderRadius:80,
+        backgroundColor:'#cc0000',
+        justifyContent:'center',
+        alignItems:'center',
+        alignSelf:'center',
+    },
+    dangerText:{
+        color:'white',
+        fontSize:40,
+        fontWeight:"bold"
+    },
+    modalHeader:{
+        marginTop:10,
+        fontWeight:'bold',
+        textAlign:'center',
+        fontSize:23,
+    },
+    modalMessage:{
+        color:'gray',
+        fontSize:20,
+        textAlign:'center',
+        marginTop:20,
+    },
+
+
+
+    modalBackground: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        backgroundColor: '#00000080'
+      },
+
+      activityIndicatorWrapper: {
+        backgroundColor: '#FFFFFF',
+       padding:20,
+        borderRadius: 30,
+        display: 'flex',
+        alignItems:'center',
+        justifyContent: 'center',
+        margin:30,
+
+      },
+    Button:{
+
+        
+    
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#0000cc',
+        padding:18,
+        borderRadius:30,
+        marginTop:20,
+        marginBottom:30,
+        
+
+
+        
 
     },
     

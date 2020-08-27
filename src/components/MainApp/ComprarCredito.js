@@ -1,5 +1,5 @@
 import React, { Component,useState } from 'react';
-import { Switch,View,StyleSheet,TextInput,Image,TouchableWithoutFeedback, Text,TouchableOpacity } from 'react-native';
+import { Switch,View,StyleSheet,TextInput,Modal,Image,TouchableWithoutFeedback, Text,TouchableOpacity } from 'react-native';
 import  Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
 import Visa from '../../../images/visa.png'
 import mastercard from '../../../images/mastercard.jpg'
@@ -11,7 +11,7 @@ const ComprarCredito=(props)=>{
 
 
     const [cardType,setCardType]=useState(Visa);
-
+    const [rechargeConfirmed,setRechargeConfirmed]=useState(false)
     const identifyCard=(text)=>{
         setCardNumber(text);
         if(text.startsWith('5'))
@@ -30,9 +30,37 @@ const ComprarCredito=(props)=>{
     const getCardType=()=>{
         return cardType;
     }
-
+    const onRecharge=()=>{
+        setRechargeConfirmed(true);
+    }
     return (
         <View style={styles.container}>
+
+{
+                  rechargeConfirmed? <Modal
+                   transparent={true}
+                   animationType="fade"
+                   onRequestClose={() => {setRechargeConfirmed(false)}}
+                   visible={rechargeConfirmed}>
+                     
+                  <View style={styles.modalBackground}>
+                  <View style={styles.activityIndicatorWrapper}>
+                      
+                       <View style={styles.danger}>
+                           <Text style={styles.dangerText}>✔</Text>
+                       </View>
+
+        <Text style={styles.modalHeader}>Recarga Exitosa</Text>
+                       
+                       
+                      
+
+                      
+                      </View></View>
+                 
+                  </Modal>:null
+                }
+
         <View style={styles.innerContainer}>
 
             <Text style={styles.title}>Agrega los datos de tu tarjeta</Text>
@@ -81,7 +109,7 @@ const ComprarCredito=(props)=>{
 
 
 
-<TouchableOpacity  style={styles.save}>
+<TouchableOpacity onPress={()=>{onRecharge()}} style={styles.save}>
 
 <Text style={styles.buttonText}>Guadar</Text>
 
@@ -201,7 +229,70 @@ const styles=StyleSheet.create({
         fontWeight:'bold',
         fontSize:20
     },
+    danger:{
+        width:80,
+        height:80,
+        borderRadius:80,
+        backgroundColor:'#cc0000',
+        justifyContent:'center',
+        alignItems:'center',
+        alignSelf:'center',
+    },
+    dangerText:{
+        color:'white',
+        fontSize:40,
+        fontWeight:"bold"
+    },
+    modalHeader:{
+        marginTop:10,
+        fontWeight:'bold',
+        textAlign:'center',
+        fontSize:23,
+    },
+    modalMessage:{
+        color:'gray',
+        fontSize:20,
+        textAlign:'center',
+        marginTop:20,
+    },
 
+
+
+    modalBackground: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        backgroundColor: '#00000080'
+      },
+
+      activityIndicatorWrapper: {
+        backgroundColor: '#FFFFFF',
+       padding:20,
+        borderRadius: 30,
+        display: 'flex',
+        alignItems:'center',
+        justifyContent: 'center',
+        margin:30,
+
+      },
+    Button:{
+
+        
+    
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#0000cc',
+        padding:18,
+        borderRadius:30,
+        marginTop:20,
+        marginBottom:30,
+        
+
+
+        
+
+    },
   
 })
 export default ComprarCredito
