@@ -6,11 +6,14 @@ import Icon  from 'react-native-vector-icons/Ionicons';
 import Icon2  from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3  from 'react-native-vector-icons/MaterialIcons';
 import { set } from 'react-native-reanimated';
-
-
+import {connect} from 'react-redux'
+import * as Actions from '../../../RideRedux/actions'
 
 const WhereTo=(props)=>{
     const [confirmModalShow,setConfirmModalShow]=useState(false);
+    const [currentDestination,setCurrentDestination]=useState({name:'',address:''});
+    const [myLocation,setMyLocation]=useState({name:'',address:''});
+   
     const [deleteConfirmed,setDeleteConfirmed]=useState(false);
     const [addresses,setAddresses]=useState([{
         name:'Case',
@@ -30,89 +33,57 @@ const WhereTo=(props)=>{
 ])
 const [toDelete,setToDelete]=useState();
 
-const onEdit=(address,index)=>{
-props.navigation.navigate('MyAddressesEdit',{address,index})
-}
 
-const onDelete=(address,index)=>{
-
-
-setToDelete({index:index,address});
-setConfirmModalShow(true);
-
-
-
-}
-const onDeleteConfirm=(address,index)=>{
-
-setConfirmModalShow(false),
+const onAccept=()=>{
     
-
-setDeleteConfirmed(true);
-
-   
-    }
+    props.setMyLocation(myLocation);
+   props.setDestination(currentDestination);
+    props.setMainActive(false);
+    props.setLocationScreenActive(true);
+    props.navigation.navigate('Home')
+}
 
     return (
         <View style={styles.container}>
 
 
-    
-{
-                    confirmModalShow? <Modal
-                    transparent={true}
-                    animationType="fade"
-                   onRequestClose={() => {setConfirmModalShow(false)}}
-                    visible={confirmModalShow}>
-                     
-                  <View style={styles.modalBackground}>
-                  <View style={styles.activityIndicatorWrapper}>
-                      
-                       <View style={styles.danger}>
-                           <Text style={styles.dangerText}>!</Text>
-                       </View>
-
-        <Text style={styles.modalHeader}>Seguro que deseas eliminar{'\n'}"Case" de tus direcciones?</Text>
-                       
-                       
-                      
-
-                       <TouchableOpacity onPress={()=>{onDeleteConfirm()}} style={styles.Button}>
-
-<Text style={styles.buttonText}>Aceptar</Text>
-
-</TouchableOpacity>
-                      </View></View>
-                 
-                  </Modal>:null
-                }
-
-
-{
-                   deleteConfirmed? <Modal
-                   transparent={true}
-                   animationType="fade"
-                   onRequestClose={() => {setDeleteConfirmed(false)}}
-                   visible={deleteConfirmed}>
-                     
-                  <View style={styles.modalBackground}>
-                  <View style={styles.activityIndicatorWrapper}>
-                      
-                       <View style={styles.danger}>
-                           <Text style={styles.dangerText}>✔</Text>
-                       </View>
-
-        <Text style={styles.modalHeader}>Direccion Eliminada</Text>
-         
-                      </View></View>
-                 
-                  </Modal>:null
-                }
-
         <View style={styles.innerContainer}>
 
+<View style={styles.outerContainer}>
+<View style={styles.locationRow}>
 
-     
+<Icon name='location-sharp' style={styles.MylocationIcon} />
+
+<TextInput style={styles.locationInput} placeholder="your Location" />
+
+
+
+    </View>
+</View>
+<View style={styles.outerContainer}>
+    <View style={styles.locationRow}>
+
+<Icon name='location-sharp' style={styles.destinationIcon} />
+
+<TextInput style={styles.locationInput} value={currentDestination.address} placeholder="Destination" />
+
+
+
+
+
+
+    </View>
+    <Icon3 onPress={()=>{addStops(currentDestination)}} style={styles.addLocationIcon} name='add' />
+     </View>
+
+     <View style={styles.sep}></View>
+
+
+     <View style={styles.savedDirectionRow}>
+
+         <Icon style={styles.sdIcon} name='location-sharp' />
+          <Text style={styles.sdText}>Direcciones guardadas</Text>
+         </View>
 
       <ScrollView>
 
@@ -121,6 +92,7 @@ setDeleteConfirmed(true);
                  return (
                     <View key={'DCard'+index} style={styles.addressCard}>
 
+                    <TouchableWithoutFeedback onPress={()=>{setCurrentDestination(address)}}>
                     <View style={styles.addressContainer}>
                         <View style={styles.nameContainer}>
                             <Icon style={styles.locationIcon} name='location-sharp' />
@@ -131,20 +103,9 @@ setDeleteConfirmed(true);
                         </View>
 
 
-                             <View style={styles.editIconContaier}>
-                             <TouchableWithoutFeedback onPress={()=>{onEdit(address,index)}}>
-                           
-                              <Icon3 style={styles.Icon} name='edit'  />
-                               </TouchableWithoutFeedback>
-                                </View>
-                                
+                  </TouchableWithoutFeedback>
 
-
-                                <View style={styles.deleteIconContaier}>
-                                <TouchableWithoutFeedback onPress={()=>{onDelete(address,index)}}>
-                                <Icon2 style={styles.Icon} name='delete' />
-                                </TouchableWithoutFeedback>
-                                    </View>
+                             
 
                     </View>
 
@@ -155,6 +116,14 @@ setDeleteConfirmed(true);
 
 
           </ScrollView>
+
+          <TouchableOpacity onPress={()=>{onAccept()}} style={styles.Button}>
+
+<Text style={styles.buttonText}>Aceptar</Text>
+
+</TouchableOpacity>
+
+          
 
 
 
@@ -197,84 +166,14 @@ const styles=StyleSheet.create({
 
     },
     locationIcon:{
-   fontSize:20,
+   fontSize:24,
    color:'#ad1f1f'
     },
     addressText:{
         color:'gray',
         marginLeft:5,
     },
-    editIconContaier:{
-
-        backgroundColor:'#002db3',
-        justifyContent:'center',
-        alignItems:'center',
-        width:35,
-        margin:3,
-        borderRadius:10,
-
-    },
-    deleteIconContaier:{
-
-        backgroundColor:'#bd0f0f',
-        justifyContent:'center',
-        alignItems:'center',
-        width:35,
-        margin:3,
-        borderRadius:10,
-
-    },
-    Icon:{
-        color:'white',
-        fontSize:25,
-    },
-    danger:{
-        width:80,
-        height:80,
-        borderRadius:80,
-        backgroundColor:'#cc0000',
-        justifyContent:'center',
-        alignItems:'center',
-        alignSelf:'center',
-    },
-    dangerText:{
-        color:'white',
-        fontSize:40,
-        fontWeight:"bold"
-    },
-    modalHeader:{
-        marginTop:10,
-        fontWeight:'bold',
-        textAlign:'center',
-        fontSize:23,
-    },
-    modalMessage:{
-        color:'gray',
-        fontSize:20,
-        textAlign:'center',
-        marginTop:20,
-    },
-
-
-
-    modalBackground: {
-        flex: 1,
-        alignItems: 'center',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        backgroundColor: '#00000080'
-      },
-
-      activityIndicatorWrapper: {
-        backgroundColor: '#FFFFFF',
-       padding:20,
-        borderRadius: 30,
-        display: 'flex',
-        alignItems:'center',
-        justifyContent: 'center',
-        margin:30,
-
-      },
+  
     Button:{
 
         
@@ -297,6 +196,103 @@ const styles=StyleSheet.create({
         fontWeight:'bold',
         fontSize:20
     },
-  
+
+    locationRow:{
+    flexDirection:'row',
+    alignItems:'center',
+    backgroundColor:'white',
+    borderRadius:30,
+    paddingLeft:20,
+    marginTop:10,
+    width:'90%'
+},
+MylocationIcon:{
+color:'blue',
+fontSize:25
+
+},
+destinationIcon:{
+
+    color:'#ad1f1f',
+fontSize:25
+
+},
+outerContainer:{
+    
+    flexDirection:'row',
+    alignItems:'center',
+},
+addLocationIcon:{
+    fontSize:30,
+    fontWeight:'bold',
+    marginLeft:5,
+    color:'blue',
+},
+locationInput:{
+    width:'100%'
+},
+sep:{
+    marginTop:30,
+    marginBottom:30,
+    width:'100%',
+    height:1,
+    borderBottomColor:'gray',
+    borderBottomWidth:1,
+},
+savedDirectionRow:{
+    flexDirection:'row',
+    alignItems:'center',
+    marginBottom:20,
+},
+sdIcon:{
+    fontSize:25,
+    color:'gray'
+},
+sdText:{
+    fontWeight:'700',
+    fontSize:20,
+},
+loginButton:{
+
+    width:'100%',
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:'#0000cc',
+    padding:15,
+    borderRadius:30,
+    marginTop:20,
+    marginBottom:30,
+
+
+    shadowColor: "#000",
+shadowOffset: {
+width: 0,
+height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+
+elevation: 10,
+
+},
+buttonText:{
+    color:'white',
+    fontWeight:'bold',
+    fontSize:20
+},
 })
-export default WhereTo
+const mapStateToProps=(state)=>({
+
+})
+ const mapDispatchToProps=(dispatch)=>({
+
+setMyLocation:(payload)=>{dispatch(Actions.SetMyLocation(payload))},
+setDestination:(payload)=>{dispatch(Actions.SetDestination(payload))},
+  
+  addStops:(payload)=>{dispatch(Actions.AddStops(payload))},
+  setMainActive:(payload)=>{dispatch(Actions.SetMainActive(payload))},
+  setLocationScreenActive:(payload)=>{dispatch(Actions.SetLocationScreenActive(payload))},
+  setBookingScreenActive:(payload)=>{dispatch(Actions.SetBookingScreenActive(payload))},
+
+ })
+export default connect(mapStateToProps,mapDispatchToProps)(WhereTo);

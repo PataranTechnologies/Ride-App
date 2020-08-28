@@ -198,7 +198,11 @@ const styles=StyleSheet.create({
         marginTop:20,
     },
 
-
+    MylocationIcon:{
+        color:'blue',
+        fontSize:25
+        
+        },
 
     modalBackground: {
         flex: 1,

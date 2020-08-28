@@ -1,20 +1,10 @@
-const { Switch } = require("react-native-gesture-handler")
-import Types from './types'
+import MainReducer from './mainReducer'
+import UserReducer from './userReducers'
 
-const reducer=(state={},action)=>{
+import {combineReducers} from 'redux'
 
-    switch (action.type) {
-        case Types.setUser:
-
-           //set user in redux store
-            
-            break;
-    
-        default:
-            break;
-    }
-
-}
-
-
-export default reducer;
+const Reducer=combineReducers({
+    MainReducer,
+    UserReducer
+})
+export default Reducer;

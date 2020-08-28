@@ -117,7 +117,9 @@ const Referal_StackNavigator = createStackNavigator({
 const Home_StackNavigator = createStackNavigator({
   Home: {
     screen:Home,
-   
+    navigationOptions: {
+      headerShown: false,
+    }
    },
 WhereTo: {
   screen:WhereTo,
