@@ -7,6 +7,7 @@ let initialState={
     mainActive:true,
     locationScreenActive:false,
     bookingScreenActive:false,
+    bookedScreenActive:false,
 }
 const MainReducer=(state=initialState,action)=>{
 
@@ -31,6 +32,9 @@ const MainReducer=(state=initialState,action)=>{
             break;
         case Types.resetStops:
             return {...state,stops:[]}
+            break;
+        case Types.setBookedScreenActive:
+            return {...state,bookedScreenActive:action.payload}
             break;
     
         default:

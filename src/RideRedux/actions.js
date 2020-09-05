@@ -66,5 +66,14 @@ export const ResetStops=(payload)=>{
     }
 
 }
+export const SetBookedScreenActive=(payload)=>{
+
+    return {
+        type:Types.setBookedScreenActive,
+        payload:payload,
+    }
+
+}
+
 
  

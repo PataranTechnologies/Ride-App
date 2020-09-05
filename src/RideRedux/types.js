@@ -9,4 +9,5 @@ export const Types={
     setMainActive:'setMainActive',
     setLocationScreenActive:'setLocationScreenActive',
     setBookingScreenActive:'setBookingScreenActive',
+    setBookedScreenActive:'setBookedScreenActive',
 }

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import LoginScreen from '../components/LoginScreen'
-import RegisterScreen from '../components/register/RegisterScreen'
-import PayInfo from '../components/register/PayInfo'
+import LoginScreen from '../screens/LoginScreen'
+import RegisterScreen from '../screens/register/RegisterScreen'
+import PayInfo from '../screens/register/PayInfo'
 import {createStackNavigator,HeaderTitle} from 'react-navigation-stack'
-import OtpValidationScreen from '../components/register/OtpValidationScreen'
-import PhoneVerifyScreen from '../components/register/PhoneVerifyScreen'
-import CustomHeader from  '../components/customHeader/customStack'
-import Header from '../components/customHeader/header'
+import OtpValidationScreen from '../screens/register/OtpValidationScreen'
+import PhoneVerifyScreen from '../screens/register/PhoneVerifyScreen'
+import Header from '../screens/customHeader/header'
 const option= {
     title: 'Chat',
     headerStyle: {
@@ -29,8 +28,7 @@ UserAuthStack=createStackNavigator({
     },
     PhoneVerifyScreen:{
         screen:PhoneVerifyScreen,
-       
-         navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Registro" backTo='LoginScreen' navigation={navigation} />,
+        navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="Registro" backTo='LoginScreen' navigation={navigation} />,
                headerLeft:null,
     
     }; }

@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
 import { createDrawerNavigator} from 'react-navigation-drawer'
-import Home from '../components/MainApp/Home'
+import Home from '../screens/MainApp/Home'
 import CustomDrawerContentComponent from './CustomDrawerContentComponent'
-import About from '../components/MainApp/About';
-import Help from '../components/MainApp/Help';
-import Myaddresses from '../components/MainApp/MyAddresses';
-import Payments from '../components/MainApp/Payments';
-import Preferences from '../components/MainApp/preferences';
-import ProfilePage from '../components/MainApp/ProfilePage';
-import Referal from '../components/MainApp/Referal';
-import TravelHistory from '../components/MainApp/TravelHistory';
+import About from '../screens/MainApp/About';
+import Help from '../screens/MainApp/Help';
+import Myaddresses from '../screens/MainApp/MyAddresses';
+import Payments from '../screens/MainApp/Payments';
+import Preferences from '../screens/MainApp/preferences';
+import ProfilePage from '../screens/MainApp/ProfilePage';
+import Referal from '../screens/MainApp/Referal';
+import TravelHistory from '../screens/MainApp/TravelHistory';
 import {createStackNavigator} from 'react-navigation-stack'
-import Header from '../components/customHeader/header'
-import PagosPendientes from '../components/MainApp/PagosPendientes'
-import ComprarCredito from '../components/MainApp/ComprarCredito';
-import ProfileEdit from '../components/MainApp/profileEdit'
-import ProfilePageHeader from '../components/customHeader/ProfilePageHeader'
-import MyAddressesEdit from '../components/MainApp/MyAddressesEdit'
-import MyAddressHeader from '../components/customHeader/MyAddressHeader'
-import MyAddressesAdd from '../components/MainApp/MyAddressesAdd'
-import WhereTo from '../components/MainApp/RideBookingScreens/WhereTo';
+import Header from '../screens/customHeader/header'
+import PagosPendientes from '../screens/MainApp/PagosPendientes'
+import ComprarCredito from '../screens/MainApp/ComprarCredito';
+import ProfileEdit from '../screens/MainApp/profileEdit'
+import ProfilePageHeader from '../screens/customHeader/ProfilePageHeader'
+import MyAddressesEdit from '../screens/MainApp/MyAddressesEdit'
+import MyAddressHeader from '../screens/customHeader/MyAddressHeader'
+import MyAddressesAdd from '../screens/MainApp/MyAddressesAdd'
+import BuyCredit from '../screens/MainApp/BuyCreditScreen'
+
 const About_StackNavigator = createStackNavigator({
    About: {
      screen:About,
@@ -121,12 +122,15 @@ const Home_StackNavigator = createStackNavigator({
       headerShown: false,
     }
    },
-WhereTo: {
-  screen:WhereTo,
-  navigationOptions: ({ navigation }) => {  return {    headerTitle: () => <Header title="¿A donde deseas ir" backTo='Home' navigation={navigation} /> ,
-  headerLeft:null,
- }; }
- },
+   BuyCredit: {
+    screen:BuyCredit,
+    navigationOptions: {
+      headerShown: false,
+    }
+   },
+   
+ 
+
 
 }
 );

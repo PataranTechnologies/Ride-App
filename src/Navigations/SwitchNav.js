@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {createSwitchNavigator} from 'react-navigation'
-import SplashScreen from '../components/SplashScreen'
+import SplashScreen from '../screens/SplashScreen'
 import UserAuthStack from './UserAuthStack'
 import MainApp from './MainApp'
 
